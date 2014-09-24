@@ -2,13 +2,19 @@
 
 #Request handlers for Pystore.
 
+import os
+import shutil
+import time
+import subprocess
+import json
+import sqlite3
+
+from multiprocessing import Process
+
 import tornado.web
 from tornado.log import access_log
 
-import sqlite3, os, shutil, time, subprocess, json
-from sys import executable
 from helpers import *
-from multiprocessing import Process
 
 class myApp(tornado.web.Application):
     def __init__(self, *args, **kwargs):

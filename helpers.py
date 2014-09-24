@@ -2,34 +2,44 @@
 
 # Helper functions for Pystore
 
-import re, smtplib, time
-from hashlib import sha256
-from email.mime.text import MIMEText
+import re
+import smtplib
+import time
+
 from random import choice
 from string import ascii_letters,digits
+from hashlib import sha256
+from email.mime.text import MIMEText
+
 
 __all__ = ["saltHash","genSalt","parseTimestamp","find_email_addresses","sendemail",
             "getHashtags","getTopHashtags","getAllHashtags","getRandomHashtags"]
 
+#Regex for finding email addresses
 email_search = re.compile(r'[^@\s,=\?<>:\\\/]+@[^@\s,=\?<>:\\\/]+\.[^@\s,\?=<>:\\\/]+')
+#Regex for finding hashtags
 hashtag_search = re.compile(r'#[^\s]+')
+#Set of characters to use when generating pseudorandom strings.
 charset = ascii_letters + digits
 
 def saltHash(text,salt=''):
     """
-    Take input text, return digest.
+    Take input text, append salt, return digest.
     """
     text += salt
     return sha256(text).hexdigest()
 
 def genSalt(salt_length=20):
     """
-    Generate random string of numbers/letters for salt values.
-    Also used to generate invitation keys.
+    Generate random string of numbers/letters.
+    Used for password salts, invitation keys, password change keys.
     """
     return ''.join([ choice(charset) for i in xrange(salt_length)])
 
 def parseTimestamp(timestamp):
+    """
+    Convert timestamp to human-readable format.
+    """
     return time.strftime('%b %d, %Y',time.localtime(timestamp))
 
 def find_email_addresses(instring):
@@ -66,7 +76,8 @@ def sendemail(to_address,subject,text,email_config,tls=True,auth=True):
 
 def getHashtags(text):
     """
-    Return list of hashtags in a string (converted to lowercase)
+    Return list of hashtags in a string.
+    Convert hashtags to lowercase.
     """
     tags = hashtag_search.findall(text)
     tags = [ tag.lower() for tag in tags ]

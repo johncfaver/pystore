@@ -6,25 +6,31 @@
 #
 # 2014 John Faver (johncfaver@gmail.com)
 
-import tornado.ioloop, tornado.log
-import sqlite3, os, shutil, time, subprocess, logging
-from sys import executable
-from multiprocessing import Process
+import os
+import logging
+import tornado.log
+import tornado.ioloop
 
 import handlers
 
 ################OPTIONS##############################
-
+#Name of the application
 app_name  = "Pystore"
+
+#HTTPS requires certificate and key files. They should be
+#placed in the /cert directory. Provide their filenames here.
 use_ssl   = False
 crt_file  = ""
 key_file  = "" 
+
+#Port for server.
 app_port  = 8881
 
-#URL for this service
+#Domain name or IP address of this service. 
 domain = ""
 
-#Settings for outgoing email
+#Settings for outgoing email. 
+#Used for invitations, password resets, updates.
 email_config = { 'from_address': '',
                  'host':         '',
                  'port':          0,
@@ -32,10 +38,10 @@ email_config = { 'from_address': '',
                  'password':     ''
                }
 
-#Location of sqlite3 database file
+#Location of sqlite database file. Default is Pystore.sqlite
 database_file = os.path.join(os.path.dirname(__file__),app_name+'.sqlite')
 
-#Log files
+#Names of log files
 accesslogfile = app_name+'_access.log'
 errorlogfile  = app_name+'_error.log'
 
@@ -67,7 +73,7 @@ Hi {0},
 #Email subject for updates (on new uploads)
 update_subject = "New document available on {0}".format(app_name)
 
-################################################################
+###############END OPTIONS##########################################
 
 if __name__ == '__main__':
     
