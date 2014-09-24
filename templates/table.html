@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+    
+    {% block head %}
+        <link rel="stylesheet" type="text/css" href="{{ static_url("view.css") }}" />
+    {% end %}
+
+    {% block body %}
+        {% set images = ['.jpg','.jpeg','.png','.gif','.tif','.tiff'] %}
+
+        {% try %}
+            {% set thispage = page %}
+        {% except %}
+            {% set thispage = 1  %}
+        {% end %}
+
+        {% if len(doclist) > 1 or thispage > 1 %} 
+            <div class="hashtags">
+                {% if len(tophashtags)>0 %}
+                    <a href="/hashtags">Top hashtags:</a>
+                    {% for hashtag in tophashtags %}
+                    <a href="/view/{{ hashtag[0][1:] }}">{{ hashtag[0] }}</a>
+                    {% end %}
+                    <br/><br/>
+                {% end %}
+                {% if len(randomhashtags)>0 %}
+                    <a href="/hashtags">Random hashtags:</a>
+                    {% for hashtag in randomhashtags %}
+                       <a href="/view/{{ hashtag[1:] }}">{{ hashtag }}</a>
+                    {% end %}
+                {% end %}
+            </div>
+            <br/>
+            <table id="doclist" class="doclist">
+                <tr class="doclist">
+                    <th class="doclist">File</th>
+                    <th class="doclist">Author</th>
+                    <th class="doclist">Date</th>
+                    <th class="doclist">Description</th>
+                    <th class="doclist">Action</th>
+                </tr>
+            {% for item in doclist %}
+                {% set docurl = "/docs/"+str(item['docid'])+"/file"+item['extension'] %}
+                {% if len(item['filename']) > 20 %}
+                    {% set file = item['filename'][:20]+'...' %}
+                {% else %}
+                    {% set file = item['filename'] %}
+                {% end %}
+                {% if len(item['description']) > 40 %}
+                    {% set desc = item['description'][:40]+'...' %}
+                {% else %}
+                    {% set desc = item['description'] %}
+                {% end %}
+                <tr class="doclist">
+                    <td class="doclist filename"><a href="{{ docurl }}">{{ file }}</a></td>
+                    <td class="doclist author">{{ item['author'] }}</td>
+                    <td class="doclist dateadded">{{ item['dateadded'] }}</td>
+                    <td class="doclist description">{{ desc }}</td>
+                    <td class="doclist action">
+                            <a href="/view/{{ item['docid'] }}">View</a>
+                            {% if handler.get_current_username() == item['author'] %}
+                                <a href="/edit/{{item['docid']}}">Edit</a>
+                            {% end %}
+                            {% if handler.get_current_username() == item['author'] or handler.user_is_admin() %}
+                                <a href="/delete/{{ item['docid'] }}">Delete</a>
+                            {% end %}
+                    </td>
+                </tr>
+            {% end %}
+            </table> 
+            <div class="pagenav">
+                {% try %}
+                    {% if items_per_page %}
+                        {% if thispage > 1 %}
+                            <div class="pageleft">
+                               <a href="/view?page={{ thispage-1 }}">Previous</a>
+                            </div>
+                        {% end %}
+                        {% if len(doclist) >= items_per_page %}
+                            <div class="pageright">
+                                <a href="/view?page={{ thispage+1 }}">Next</a>
+                            </div>
+                        {% end %}
+                    {% end %}
+                {% except %}
+                {% end %}
+           </div>
+        {% elif len(doclist) == 1 and thispage == 1 %}
+            {% set item = doclist[0] %}
+            {% set docurl = "/docs/"+str(item['docid'])+"/file"+item['extension'] %}
+            <div class="singleitem">
+                <div class="singleiteminfo">
+                    One item found:<br/><br/>
+                    <ul class="docinfo">
+                        <li>Filename: <a href="{{ docurl }}">{{ item['filename'] }}</a></li><br/>
+                        <li>Author: {{ item['author'] }}</li><br/>
+                        <li>Date: {{ item['dateadded'] }}</li><br/>
+                        <li>Description: {{ item['description'] }}</li><br/>
+                    </ul>
+                </div>
+                <div class="singleitemthumb">
+                    {% if item['extension'].lower() in images %}
+                        <a href="{{ docurl }}"><img src="{{ docurl }}" class="singleitemthumb" /></a>
+                    {% end %}
+                </div>
+            </div>
+        {% else %}
+            No documents available.
+        {% end %}
+    {% end %}
+   

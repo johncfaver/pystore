@@ -1,0 +1,13 @@
+Pystore is a web-based application for uploading, tagging, searching, and viewing documents. 
+It is based on the Tornado web framework. 
+
+To run Pystore:
+1) Ensure that tornado is available in the python environment (pip install tornado)
+2) Update options in the pystore.py file, including application name, domain name, and port.
+There are also settings for outgoing email used for account creation and password resets.
+If SSL is to be used, update the filenames of the certificate and key files. The files should be placed in the /certs directory.
+3) Run the pystore.py script. (python pystore.py &)
+
+When started for the first time, an admin account will be created with the username/password admin/admin. Obviously, this password should be changed ASAP.
+Admin users can invite other users, and generate keys for password resets.
+

@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+    <head>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+        <link rel="stylesheet" type="text/css" href="{{ static_url("base.css") }}" />
+    </head>
+    <body>
+ 
+        {% if message %}
+            {{ message }}
+            <br/><br/>
+        {% end %}
+
+        <div class="login">
+            <form action="/login" method="post">
+                 Name: <input type="text" name="username" /><br/>
+                 Password: <input type="password" name="password" /><br/>
+                <input type="submit" value="Sign in" />
+                {% module xsrf_form_html() %}
+            </form>
+        </div>
+
+    </body>
+</html>

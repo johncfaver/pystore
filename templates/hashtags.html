@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+    
+    {% block head %}
+         <link rel="stylesheet" type="text/css" href="{{ static_url("view.css") }}" />
+    {% end %}
+
+    {% block body %}
+        <div class="allhashtags">
+            All hashtags:<br/>
+            <table class="allhashtags">
+                {% for itag,tag in enumerate(hashtags) %}
+                    {% if itag % 5 == 0 %}
+                        <tr class="allhashtags">
+                    {% end %}
+                        <td class="allhashtags">
+                            <a href="/view/{{ tag[0][1:] }}">{{ tag[0] }}({{ tag[1] }})</a>
+                        </td>
+                    {% if itag % 5 == 4 %}
+                        </tr>
+                    {% end %}
+                {% end %}
+            </table>
+        </div>
+    {% end %} 

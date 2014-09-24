@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+    {% block head %}
+        <link rel="stylesheet" type="text/css" href="{{ static_url("admin.css") }}" />
+    {% end %}
+    {% block body %}
+        {% if len(users) > 0 %}
+            <table class="userlist">
+                <tr class="userlist">
+                    <th class="userlist">Username</th>
+                    <th class="userlist">Isadmin</th>
+                    <th class="userlist">Emailupdates</th>
+                    <th class="userlist">Email</th>
+                    <th class="userlist">Actions</th>
+                </tr>
+            {% for user in users %}
+                <tr class="userlist">
+                    <td class="userlist username">{{ user['username'] }}</td>
+                    <td class="userlist isadmin">{{ user['isadmin'] }}</td>
+                    <td class="userlist emailupdates">{{ user['emailupdates'] }}</td>
+                    <td class="userlist email">{{ user['email'] }}</td>
+                    <td class="userlist actions">
+                        {% set uid = user['userid'] %} 
+                        <form id="{{ uid }}gpk" action="admin" method="post">
+                            <input type="hidden" name="userid" value="{{ uid }}"/>
+                            <input type="hidden" name="action" value="generatePasswordKey"/>
+                            <a href="#" onclick="document.getElementById('{{ uid }}gpk').submit()">GenPassKey</a>
+                            {% module xsrf_form_html() %}
+                        </form>
+                    </td>
+                </tr>
+            {% end %}
+            </table>
+        {% else %}
+            NO USERS
+        {% end %}
+        <br/><br/>       
+        <form action="/invite" method="post">
+            <textarea id="emailbox" cols="50" rows="2" placeholder="Enter Email addresses..." name="email_invitations" ></textarea>
+            <input type="submit" value="Send invitations" />
+            {% module xsrf_form_html() %}
+        </form>
+    {% end %}

@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+    {% block body %}
+        <div class="settings">
+            Settings for {{ userdata['username'] }}:</br>
+            <form action="/settings" method="post">
+                <input type="hidden" name="oldemailupdates" value="{{ userdata['emailupdates'] }}" />
+                <br/><br/>
+                Email Updates:
+                <input type="radio" name="emailupdates" value="1" {% if userdata['emailupdates'] == 1 %} checked {% end %} />Yes
+                <input type="radio" name="emailupdates" value="0" {% if userdata['emailupdates'] == 0 %} checked {% end %}/>No
+                <br/><br/><br/>
+                <input type="submit" value="Update" />
+                {% module xsrf_form_html() %}
+            </form>
+        </div>
+    {% end %} 

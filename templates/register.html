@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+    {% block body %}
+        New account registration for {{ email }}:<br/><br/>
+        <form action="/register/{{ inviteid }}" method="post">
+            <input type="hidden" name="email" value="{{ email }}" />
+            Email: {{ email }}<br/>
+            Username: <input type="text" name="username" required /><br/>
+            Password: <input type="password" name="password" required /><br/>
+            Email Updates? <input type="radio" name="emailupdates" value="1" />Yes
+                           <input type="radio" name="emailupdates" value="0" checked /> No<br/>
+            <input type="submit" value="Register"/>
+            {% module xsrf_form_html() %}
+        </form>
+    {% end %}

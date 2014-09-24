@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+    <head>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+        <link rel="stylesheet" type="text/css" href="{{ static_url("base.css") }}" />
+        {% block head %}
+        {% end %}
+    </head>
+    <body>
+        <div class="navbar">
+            <ul class="nav">
+                <li class="nav">
+                    <a href="/view?mode=gallery" class="white">Gallery</a>
+                </li>
+                <li class="nav">
+                    <a href="/view" class="white">List</a>
+                </li>
+
+                <li class="nav">
+                    <a href="/search" class="white">Search</a>
+                </li>
+                <li class="nav">
+                    <a href="/upload" class="white">Upload</a>
+                </li>
+                <li class="nav">
+                    <a href="/logout" class="white">Logout</a>
+                </li>
+            </ul>
+        </div>
+        <div class="main">
+            {% block body %}
+            {% end %}
+        </div>
+        <div class="footer">
+            {% block footer %}
+            {% end %}
+        </div>
+    </body> 
+</html>

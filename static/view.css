@@ -1,0 +1,105 @@
+table.doclist{
+    font-size:0.8em;
+    margin:auto;
+    width:90%;
+    border-collapse:collapse; 
+}
+th.doclist{
+    background:#000;
+    font-size:1.3em;
+    color:#fff;
+    height:30px;
+    border:1px solid #222;
+}
+tr.doclist{
+}
+td.doclist{
+    height:30px;
+    text-align:center;
+    border:1px solid #222;
+}
+td.gallery{
+    padding:5px;
+    height:150px;
+    width:20%;
+    text-align:center;
+}
+img.gallery{
+    max-height:150px;
+    border: 0px;
+}
+td.filename{
+    width:20%;
+}
+td.author{
+    width:10%;
+}
+td.dateadded{
+    width:15%;
+}
+td.description{
+    width:35%;
+}
+td.action{
+    width:20%;
+}
+ul.docinfo{
+    width:80%;
+    text-align:justify;
+    padding-left:0px;
+}
+div.hashtags{
+    text-align:center;
+    font-size:0.8em;
+    margin:auto;
+    width:80%;
+}
+div.singleitem{
+    margin:auto;
+    width:70%;
+    padding-left:50px;
+    text-align:justify;
+}
+div.singleiteminfo{
+    width:50%;
+    float:left;
+}
+div.singleitemthumb{
+    width:50%;
+    float:left;
+}
+img.singleitemthumb{
+    max-height:300px;
+}
+div.edititem{
+    width:400px;
+    margin:auto;
+    text-align:left;
+}
+div.allhashtags{
+    text-align:center;
+    width:80%;
+    margin:auto;
+}
+table.allhashtags{
+    font-size:0.8em;
+    margin:auto;
+    margin-top:20px;
+}
+tr.allhashtags{
+    height:30px;
+}
+td.allhashtags{
+    width:20%;
+}
+div.pagenav{
+    margin:auto;
+    margin-top:30px;
+    width:200px;
+}
+div.pageleft{
+    float:left;
+}
+div.pageright{
+    float:right;
+}

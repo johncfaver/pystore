@@ -1,0 +1,35 @@
+table.userlist{
+    font-size:0.8em;
+    margin:auto;
+    width:80%;
+    border-collapse:collapse; 
+}
+th.userlist{
+    background:#000;
+    color:#fff;
+    height:30px;
+    border:1px solid #222;
+}
+tr.userlist{
+    height:35px;
+}
+td.userlist{
+    height:20px;
+    text-align:center;
+    border:1px solid #222;
+}
+td.username{
+    width:25%;
+}
+td.isadmin{
+    width:10%;
+}
+td.emailupdates{
+    width:10%;
+}
+td.email{
+    width:35%;
+}
+td.actions{
+    width:20%;
+}

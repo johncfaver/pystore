@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+    
+    {% block head %}
+         <link rel="stylesheet" type="text/css" href="{{ static_url("upload.css") }}" />
+    {% end %}
+
+    {% block body %}
+        <div class="upload">
+            <form action="/upload" method="post" enctype="multipart/form-data">
+                File:<br/><br/>
+                <input type="file" name="docfile" />
+                <br/><br/><br/>
+                Description:<br/><textarea rows=3 cols=70 name="description" ></textarea>
+                <br/><br/>
+                <input type="submit" value="Upload" />
+                {% module xsrf_form_html() %}
+            </form>
+        </div>
+        <div class="hashtags"><br/>
+            <a href="/hashtags">Top hashtags:</a><br/>
+            <table class="hashtags">
+                {% for itag,tag in enumerate(topHashtags) %}
+                    {% if itag % 3 == 0 %}
+                        <tr class="hashtags">
+                    {% end %}
+                        <td class="hashtags"> 
+                           <a href="/view/{{ tag[0][1:] }}"> {{ tag[0] }}</a>
+                        </td>
+                    {% if itag % 3 == 2 %}
+                        </tr>
+                    {% end %}
+                {% end %}
+            </table>
+        </div>
+    {% end %}
+

@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+    
+    {% block head %}
+        <link rel="stylesheet" type="text/css" href="{{ static_url("view.css") }}" />
+    {% end %}
+
+    {% block body %}
+            {% set docurl = "/docs/"+str(doc['docid'])+"/file"+doc['extension'] %}
+        <div class="edititem">
+            <ul class="docinfo">
+                <li>Filename: <a href="/{{ docurl }}">{{ doc['filename'] }}</a></li><br/>
+                <li>Author: {{ doc['author'] }}</li><br/>
+                <li>Date: {{ doc['dateadded'] }}</li><br/>
+            </ul>
+                Description: <br/>
+                    <form action="/edit/{{doc['docid']}}" method="post">
+                        <textarea name="newdescription" cols=50 rows=4>{{ doc['description'] }}</textarea>
+                        <br/><br/>
+                        {% module xsrf_form_html() %}
+                        <input type="submit" value="Update"/>
+                    </form>
+        </div>
+    {% end %}
+   

@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+    {% block body %}
+        <div class="search">
+            <form action="/search" method="post">
+                Search: <input type="text" name="query" />
+                <br/><br/>
+                <input type="radio" name="searchtype" value="all" checked />All 
+                <input type="radio" name="searchtype" value="users" />Users
+                <input type="radio" name="searchtype" value="filenames" />Filenames
+                <input type="radio" name="searchtype" value="descriptions" />Description
+                <br/><br/>
+                <input type="submit" value="Search" />
+                {% module xsrf_form_html() %}
+            </form>
+        </div>
+    {% end %}
+

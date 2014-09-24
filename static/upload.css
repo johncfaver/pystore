@@ -1,0 +1,16 @@
+div.upload{
+    margin:auto;
+    width:500px;
+    text-align:left;
+}
+div.hashtags{
+    border-top:1px solid #000;
+    width:500px;
+    margin:auto;
+    margin-top:50px;
+    text-align:center;
+}
+table.hashtags{
+    margin-top:25px;
+    width:100%;
+}
