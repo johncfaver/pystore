@@ -106,7 +106,8 @@ if __name__ == '__main__':
                 'login_url':         "/login",
                 'cookie_secret':     "E3kXxr03OIbb4eER89UBitdqePzeAE",
                 'xsrf_cookies':      True,
-                'database_file':     database_file
+                'database_file':     database_file,
+                'email_config':      email_config
               }
 
     app = handlers.myApp(app_handlers,**options)

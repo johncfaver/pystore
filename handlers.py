@@ -33,6 +33,7 @@ class myApp(tornado.web.Application):
             with open('createdb.sql') as fsql:
                 self.db.executescript(fsql.read())
         self.db.create_function("saltHash",2,saltHash)
+        self.email_config = kwargs['email_config']
         tornado.web.Application.__init__(self, *args, **kwargs)
 
     def log_request(self, handler): 
@@ -137,7 +138,7 @@ class upload(myHandler):
             to_name =    row[0]
             to_address = to_name
             imsg = update_msg.format(to_name,author,docid,filename,desc)
-            sendemail(to_address,update_subject,imsg,email_config)
+            sendemail(to_address,update_subject,imsg,self.application.email_config)
 
 class delete(myHandler):
     """
@@ -381,7 +382,7 @@ class invite(myHandler):
                          [invitekey,email])
                 self.application.db.commit()
                 message = invite_msg.format(invitekey)
-                sendemail(email,invite_subject,message,email_config)
+                sendemail(email,invite_subject,message,self.application.email_config)
         self.redirect('/admin')
 
 class register(myHandler):
